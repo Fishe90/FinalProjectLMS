@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Admin";
+}
+
+    <div class="adminPage" style="display: block">
+        <h2>Roles Admin</h2>
+        <ul>
+            <li><a href="@Url.Action("Index","RolesAdmin")">Roles</a></li>
+            <li><a href="@Url.Action("Index","UsersAdmin")">Users</a></li>
+        </ul>                
+    </div>
+
+    <div class="adminPage" style="display: block">
+        <h2>Database Control</h2>
+        <ul>
+            <li><a href="@Url.Action("Index","CourseCompletions")" style="font-size: 25px">Course Completions</a></li>
+            <li><a href="@Url.Action("Index","Courses")">Courses</a></li>
+            <li><a href="@Url.Action("Index","Lessons")">Lessons</a></li>
+            <li><a href="@Url.Action("Index","LessonViews")">Lesson Views</a></li>
+            <li><a href="@Url.Action("Index","UserDetails")">User Details</a></li>
+        </ul>
+    </div>

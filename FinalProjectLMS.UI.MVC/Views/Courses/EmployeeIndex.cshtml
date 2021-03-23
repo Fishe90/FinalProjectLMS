@@ -1,0 +1,59 @@
+﻿@model IEnumerable<FinalProjectLMS.DATA.EF.Courses>
+
+@{
+    ViewBag.Title = "Courses: Continued Education";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@foreach (var item in Model)
+{
+    if (item.IsActive)
+    {
+        <table style="width: 100%">
+            <thead style="background-color: lightgray; font-size: 25px">
+                <tr style="border: 1px solid darkgray;">
+                    <th style="padding: 10px 20px; color: darkslategray">@Html.DisplayFor(modelItem => item.CourseName)</th>
+                    @*<th>@Html.DisplayFor(modelItem => item.CourseDescription)</th>*@
+                </tr>
+            </thead>
+            <tbody>
+                @{ foreach (var lesson in item.Lessons)
+                    {
+                        if (lesson.IsActive && lesson.VideoURL == null && lesson.PdfFilename == null)
+                        {
+                            <tr style="border: 1px solid darkgray;">
+                                <td style="font-size: 25px; padding: 10px 50px"><a href="#" style="color: dimgrey">@Html.DisplayFor(modelItem => lesson.LessonTitle)<i class="bx bxs-file" style="padding-left: 10px"></i></a></td>
+                            </tr>
+                        }
+                        else if (lesson.IsActive && lesson.VideoURL != null && lesson.PdfFilename == null)
+                        {
+                            <tr style="border: 1px solid darkgray;">
+                                <td style="font-size: 25px; padding: 10px 50px"><a href="#" style="color: dimgrey">@Html.DisplayFor(modelItem => lesson.LessonTitle)<i class="bx bxs-film" style="padding-left: 10px"></i></a></td>
+                            </tr>
+                        }
+                        else if (lesson.IsActive && lesson.PdfFilename != null && lesson.VideoURL == null)
+                        {
+                            <tr style="border: 1px solid darkgray;">
+                                <td style="font-size: 25px; padding: 10px 50px"><a href="#" style="color: dimgrey">@Html.DisplayFor(modelItem => lesson.LessonTitle)<i class="bx bxs-file-pdf" style="padding-left: 10px"></i></a></td>
+                            </tr>
+                        }
+                        else if (lesson.IsActive && lesson.PdfFilename != null && lesson.VideoURL != null)
+                        {
+                            <tr style="border: 1px solid darkgray;">
+                                <td style="font-size: 25px; padding: 10px 50px"><a href="#" style="color: dimgrey">@Html.DisplayFor(modelItem => lesson.LessonTitle)<i class="bx bxs-file-pdf" style="padding-left: 10px"></i><i class="bx bxs-film" style="padding-left: 10px"></i></a></td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+        <br /> <br />
+
+    }
+}
+

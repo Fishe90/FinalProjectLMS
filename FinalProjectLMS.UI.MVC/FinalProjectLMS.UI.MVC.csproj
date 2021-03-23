@@ -455,6 +455,9 @@
     <Content Include="_Archive\assets\vendor\owl.carousel\README.md" />
     <Content Include="_Archive\assets\vendor\typed.js\typed.min.js.map" />
     <Content Include="Views\Shared\_OriginalLayout.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
+    <Content Include="Views\Courses\EmployeeDetails.cshtml" />
+    <Content Include="Views\Courses\EmployeeIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

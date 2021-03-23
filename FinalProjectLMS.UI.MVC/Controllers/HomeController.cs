@@ -11,6 +11,12 @@ namespace FinalProjectLMS.UI.MVC.Controllers
         }
 
         [HttpGet]
+        public ActionResult Admin()
+        {
+            return View();
+        }
+
+        [HttpGet]
         [Authorize]
         public ActionResult About()
         {

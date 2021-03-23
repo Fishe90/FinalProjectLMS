@@ -20,8 +20,27 @@ namespace FinalProjectLMS.UI.MVC.Controllers
             return View(db.Courses.ToList());
         }
 
+        public ActionResult EmployeeIndex()
+        {
+            return View(db.Courses.ToList());
+        }
+
         // GET: Courses/Details/5
         public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Courses courses = db.Courses.Find(id);
+            if (courses == null)
+            {
+                return HttpNotFound();
+            }
+            return View(courses);
+        }
+
+        public ActionResult EmployeeDetails(int? id)
         {
             if (id == null)
             {

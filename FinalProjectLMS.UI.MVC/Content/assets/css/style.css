@@ -8,6 +8,18 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+.adminPage {
+    display: inline-block;
+}
+
+.adminPage a {
+    font-size: 25px;
+}
+
+.adminPage h2 {
+    font-size: 35px;
+}
+
 body {
   font-family: "Open Sans", sans-serif;
   color: #272829;
