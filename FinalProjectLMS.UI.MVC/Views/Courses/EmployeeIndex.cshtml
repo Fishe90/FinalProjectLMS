@@ -6,18 +6,18 @@
 
 <h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
 
 @foreach (var item in Model)
 {
     if (item.IsActive)
     {
-        <table style="width: 100%">
+        <table style="width: 100%" id="employeeCourses">
             <thead style="background-color: lightgray; font-size: 25px">
                 <tr style="border: 1px solid darkgray;">
-                    <th style="padding: 10px 20px; color: darkslategray">@Html.DisplayFor(modelItem => item.CourseName)</th>
+                    <th style="padding: 10px 20px;"><a href="@Url.Action("Details", "Courses", new { id=item.CourseID })" style=" color: darkslategray">@Html.DisplayFor(modelItem => item.CourseName)</a></th>
                     @*<th>@Html.DisplayFor(modelItem => item.CourseDescription)</th>*@
                 </tr>
             </thead>
@@ -27,25 +27,25 @@
                         if (lesson.IsActive && lesson.VideoURL == null && lesson.PdfFilename == null)
                         {
                             <tr style="border: 1px solid darkgray;">
-                                <td style="font-size: 25px; padding: 10px 50px"><a href="#" style="color: dimgrey">@Html.DisplayFor(modelItem => lesson.LessonTitle)<i class="bx bxs-file" style="padding-left: 10px"></i></a></td>
+                                <td style="font-size: 25px; padding: 10px 50px"><a href="@Url.Action("EmployeeDetails", "Lessons", new { id=lesson.LessonID })" style="color: dimgrey">@Html.DisplayFor(modelItem => lesson.LessonTitle)<i class="bx bxs-file" style="padding-left: 10px"></i></a></td>
                             </tr>
                         }
                         else if (lesson.IsActive && lesson.VideoURL != null && lesson.PdfFilename == null)
                         {
                             <tr style="border: 1px solid darkgray;">
-                                <td style="font-size: 25px; padding: 10px 50px"><a href="#" style="color: dimgrey">@Html.DisplayFor(modelItem => lesson.LessonTitle)<i class="bx bxs-film" style="padding-left: 10px"></i></a></td>
+                                <td style="font-size: 25px; padding: 10px 50px"><a href="@Url.Action("EmployeeDetails", "Lessons", new { id=lesson.LessonID })" style="color: dimgrey">@Html.DisplayFor(modelItem => lesson.LessonTitle)<i class="bx bxs-film" style="padding-left: 10px"></i></a></td>
                             </tr>
                         }
                         else if (lesson.IsActive && lesson.PdfFilename != null && lesson.VideoURL == null)
                         {
                             <tr style="border: 1px solid darkgray;">
-                                <td style="font-size: 25px; padding: 10px 50px"><a href="#" style="color: dimgrey">@Html.DisplayFor(modelItem => lesson.LessonTitle)<i class="bx bxs-file-pdf" style="padding-left: 10px"></i></a></td>
+                                <td style="font-size: 25px; padding: 10px 50px"><a href="@Url.Action("EmployeeDetails", "Lessons", new { id=lesson.LessonID })" style="color: dimgrey">@Html.DisplayFor(modelItem => lesson.LessonTitle)<i class="bx bxs-file-pdf" style="padding-left: 10px"></i></a></td>
                             </tr>
                         }
                         else if (lesson.IsActive && lesson.PdfFilename != null && lesson.VideoURL != null)
                         {
                             <tr style="border: 1px solid darkgray;">
-                                <td style="font-size: 25px; padding: 10px 50px"><a href="#" style="color: dimgrey">@Html.DisplayFor(modelItem => lesson.LessonTitle)<i class="bx bxs-file-pdf" style="padding-left: 10px"></i><i class="bx bxs-film" style="padding-left: 10px"></i></a></td>
+                                <td style="font-size: 25px; padding: 10px 50px"><a href="@Url.Action("EmployeeDetails", "Lessons", new { id=lesson.LessonID })" style="color: dimgrey">@Html.DisplayFor(modelItem => lesson.LessonTitle)<i class="bx bxs-file-pdf" style="padding-left: 10px"></i><i class="bx bxs-film" style="padding-left: 10px"></i></a></td>
                             </tr>
                         }
                     }
@@ -56,4 +56,3 @@
 
     }
 }
-

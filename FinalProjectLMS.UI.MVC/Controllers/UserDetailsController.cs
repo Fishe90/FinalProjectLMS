@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinalProjectLMS.DATA.EF;
+using FinalProjectLMS.UI.MVC.Utilities;
 
 namespace FinalProjectLMS.UI.MVC.Controllers
 {
@@ -78,10 +80,41 @@ namespace FinalProjectLMS.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName")] UserDetails userDetails)
+        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName")] UserDetails userDetails, HttpPostedFileBase imgURL)
         {
             if (ModelState.IsValid)
             {
+                #region Image File Upload Utility
+                string imgName = "default-profile.jpg";
+
+                if (imgURL != null)
+                {
+                    imgName = imgURL.FileName;
+
+                    string ext = imgName.Substring(imgName.LastIndexOf('.'));//.ext
+
+                    string[] goodExts = { ".jpg", ".jpeg", ".gif", ".png" };
+
+                    if (goodExts.Contains(ext.ToLower()) && (imgURL.ContentLength <= 4194304))
+                    {
+                        imgName = Guid.NewGuid() + ext.ToLower();
+
+                        string savePath = Server.MapPath("~/Content/images/");
+                        Image convertedImage = Image.FromStream(imgURL.InputStream);
+                        int maxImageSize = 500;
+                        int maxThumbSize = 100;
+
+                        ImageService.ResizeImage(savePath, imgName, convertedImage, maxImageSize, maxThumbSize);
+                        userDetails.ProfilePic = imgName;
+                    }
+                    else
+                    {
+                        imgName = "default-profile.jpg";
+                        userDetails.ProfilePic = imgName;
+                    }
+                }
+                #endregion
+
                 db.Entry(userDetails).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

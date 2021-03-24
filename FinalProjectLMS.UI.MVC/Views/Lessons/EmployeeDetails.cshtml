@@ -1,0 +1,72 @@
+﻿@model FinalProjectLMS.DATA.EF.Lessons
+
+@{
+    ViewBag.Title = Html.DisplayFor(model => model.Cours.CourseName) + " - " + Model.LessonTitle.ToString();
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        @*<dd>
+            @Html.DisplayFor(model => model.Cours.CourseName)
+        </dd>*@
+        @*<dt>
+            @Html.DisplayNameFor(model => model.LessonTitle)
+        </dt>*@
+
+        @*<dd>
+            @Html.DisplayFor(model => model.LessonTitle)
+        </dd>*@
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Introduction)
+        </dt>*@
+
+        <dd style="font-size: 25px;">
+            @Html.DisplayFor(model => model.Introduction)
+        </dd>
+
+        @if (Model.VideoURL != null)
+        {
+            @*<dt>
+                @Html.DisplayNameFor(model => model.VideoURL)
+            </dt>*@
+
+            <dd>
+                @*<div class="container">*@
+                <iframe @*class="iframe-class"*@ width="900" height="506" src=@Model.VideoURL title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="margin: auto"></iframe>
+                @*</div>*@
+            </dd>
+        }
+
+        @if (Model.PdfFilename != null)
+        {
+            @*<dt>
+                @Html.DisplayNameFor(model => model.PdfFilename)
+            </dt>*@
+
+            <dd>
+                @*@Html.DisplayFor(model => model.PdfFilename)*@
+                <embed src="~/Content/assets/img/@Model.PdfFilename" style="width: 100%; height: 80em; margin-top: 5em;" scrolling="auto" />
+            </dd>
+        }
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cours.CourseName)
+        </dt>*@
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.LessonID }) |*@
+    <a href="@Url.Action("EmployeeIndex","Courses")">Back to Courses</a>
+</p>

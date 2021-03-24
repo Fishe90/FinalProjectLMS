@@ -24,6 +24,7 @@ namespace FinalProjectLMS.DATA.EF
         public string UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string ProfilePic { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseCompletions> CourseCompletions { get; set; }

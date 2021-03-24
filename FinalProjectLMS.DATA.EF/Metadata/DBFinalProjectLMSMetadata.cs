@@ -99,6 +99,9 @@ namespace FinalProjectLMS.DATA.EF/*.Metadata*/
     #region UserDetails
     public class UserDetailsMetadata
     {
+        [Display(Name = "Profile")]
+        public string ProfilePic { get; set; }
+
         [Required]
         [Display(Name = "First Name")]
         [StringLength(50, ErrorMessage = "*First name must not exceed 50 characters.")]

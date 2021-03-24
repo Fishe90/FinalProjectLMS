@@ -14,6 +14,9 @@
         <th>
             @Html.DisplayNameFor(model => model.FullName)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProfilePic)
+        </th>
         @*<th>
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
@@ -27,6 +30,10 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.ProfilePic)*@
+            <img src="~/Content/images/@item.ProfilePic" style="width: 100px; height: 100px; background-size: contain" />
         </td>
         @*<td>
             @Html.DisplayFor(modelItem => item.FirstName)

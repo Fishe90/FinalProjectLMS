@@ -1,21 +1,32 @@
 ﻿@model FinalProjectLMS.DATA.EF.UserDetails
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Profile";
 }
 
-<h2>Edit</h2>
+<h2>@ViewBag.Title</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "UserDetails", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>UserDetails</h4>
+        @*<h4>UserDetails</h4>*@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.UserID)
+
+        <div class="form-group">
+            <p>Change Profile Picture</p>
+            <img src="~/Content/images/@Model.ProfilePic" style="width: 300px; height: 300px; background-size: contain; display: block" />
+            @*@Html.LabelFor(model => model.ProfilePic, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.ImgURL, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ImgURL, "", new { @class = "text-danger" })*@
+                <input type="file" name="ImgURL" />
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })

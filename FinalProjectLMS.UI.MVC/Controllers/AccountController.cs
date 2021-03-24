@@ -1,7 +1,11 @@
-﻿using FinalProjectLMS.UI.MVC.Models;
+﻿using FinalProjectLMS.DATA.EF;
+using FinalProjectLMS.UI.MVC.Models;
+using FinalProjectLMS.UI.MVC.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -145,7 +149,7 @@ namespace FinalProjectLMS.UI.MVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase imgURL)
         {
             if (ModelState.IsValid)
             {
@@ -153,11 +157,53 @@ namespace FinalProjectLMS.UI.MVC.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                    ViewBag.Link = callbackUrl;
-                    return View("DisplayEmail");
+                    #region Dealing with custom user details
+                    UserDetails newUserDetails = new UserDetails();
+                    newUserDetails.UserID = user.Id;
+                    newUserDetails.FirstName = model.FirstName;
+                    newUserDetails.LastName = model.LastName;
+                    #endregion
+
+                    #region Image File Upload Utility
+                    string imgName = "default-profile.jpg";
+
+                    if (imgURL != null)
+                    {
+                        imgName = imgURL.FileName;
+                        
+                        string ext = imgName.Substring(imgName.LastIndexOf('.'));//.ext
+                        
+                        string[] goodExts = { ".jpg", ".jpeg", ".gif", ".png" };
+                        
+                        if (goodExts.Contains(ext.ToLower()) && (imgURL.ContentLength <= 4194304))            
+                        {
+                            imgName = Guid.NewGuid() + ext.ToLower();
+                            
+                            string savePath = Server.MapPath("~/Content/images/");
+                            Image convertedImage = Image.FromStream(imgURL.InputStream);
+                            int maxImageSize = 500;
+                            int maxThumbSize = 100;
+
+                            ImageService.ResizeImage(savePath, imgName, convertedImage, maxImageSize, maxThumbSize);
+                            newUserDetails.ProfilePic = imgName;                            
+                        }
+                        else
+                        {
+                            imgName = "default-profile.jpg";
+                            newUserDetails.ProfilePic = imgName;
+                        }
+                    }                    
+                    #endregion
+
+                    FinalProjectLMSEntities db = new FinalProjectLMSEntities();
+                    db.UserDetails1.Add(newUserDetails);
+                    db.SaveChanges();
+
+                    //var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                    //ViewBag.Link = callbackUrl;
+                    return RedirectToAction("Index","Home");
                 }
                 AddErrors(result);
             }

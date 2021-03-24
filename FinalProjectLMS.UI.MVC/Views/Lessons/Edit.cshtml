@@ -7,10 +7,10 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Lessons", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Lessons</h4>
         <hr />
@@ -43,7 +43,11 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.VideoURL, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*<p class="text-danger">*NOTE: In order for the video to appear, right click in the YouTube video window and select '< > Copy embeded code'.</p>
+            <p class="text-danger">*Paste the code below and DELETE everything except for the URL.</p>*@
             <div class="col-md-10">
+                @*@Html.EditorFor(model => "https://www.youtube.com/embeded/" + model.VideoURL.Substring(24), new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.VideoURL, "", new { @class = "text-danger" })*@
                 @Html.EditorFor(model => model.VideoURL, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.VideoURL, "", new { @class = "text-danger" })
             </div>
@@ -52,8 +56,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PdfFilename, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PdfFilename, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PdfFilename, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.PdfFilename, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PdfFilename, "", new { @class = "text-danger" })*@
+                <input type="file" name="ImgURL" />
             </div>
         </div>
 

@@ -51,6 +51,7 @@
           <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProfilePic" Type="varchar" MaxLength="100" />
         </EntityType>
         <Association Name="FK_CourseCompletions_Courses">
           <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
@@ -239,6 +240,7 @@
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CourseCompletions" Relationship="FinalProjectLMSModel.FK_CourseCompletions_UserDetails" FromRole="UserDetail" ToRole="CourseCompletions" />
           <NavigationProperty Name="LessonViews" Relationship="FinalProjectLMSModel.FK_LessonViews_UserDetails" FromRole="UserDetail" ToRole="LessonView" />
+          <Property Name="ProfilePic" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_CourseCompletions_UserDetails">
           <End Type="FinalProjectLMSModel.UserDetails" Role="UserDetail" Multiplicity="1" />
@@ -329,6 +331,7 @@
           <EntitySetMapping Name="UserDetails1">
             <EntityTypeMapping TypeName="FinalProjectLMSModel.UserDetails">
               <MappingFragment StoreEntitySet="UserDetails">
+                <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />

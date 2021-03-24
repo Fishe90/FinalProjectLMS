@@ -44,7 +44,8 @@
             @Html.DisplayFor(modelItem => item.VideoURL)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PdfFilename)
+            @*@Html.DisplayFor(modelItem => item.PdfFilename)*@
+            <img src="@item.PdfFilename" style="width: 100px; height: 100px; background-size: contain" />
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IsActive)

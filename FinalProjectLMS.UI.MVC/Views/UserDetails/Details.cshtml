@@ -1,29 +1,44 @@
 ﻿@model FinalProjectLMS.DATA.EF.UserDetails
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Account";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>UserDetails</h4>
+    @*<h4>UserDetails</h4>*@
     <hr />
     <dl class="dl-horizontal">
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+        </dt>*@
 
-        <dd>
+        @*<dd>
             @Html.DisplayFor(model => model.FirstName)
-        </dd>
+        </dd>*@
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+        </dt>*@
+
+        @*<dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>*@
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.ProfilePic)
+        </dt>*@
+
+        @*<dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>*@
 
         <dd>
-            @Html.DisplayFor(model => model.LastName)
+            @*@Html.DisplayFor(model => model.ProfilePic)*@
+            <img src="~/Content/images/@Model.ProfilePic" style="width: 300px; height: 300px; background-size: contain; display: block" />
+            <br/>
+            <h2 style="display: block">@Html.DisplayFor(model => model.FullName)</h2>
         </dd>
 
     </dl>
